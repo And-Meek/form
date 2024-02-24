@@ -23,7 +23,6 @@ export const Form = () => {
 	const onChange = ({ target }) => {
 		if (target.name === 'password') {
 			if (!/^[\wS]*$/.test(target.value)) {
-				console.log('пароль не подходит');
 				currentError = errors.passwordValueError;
 			}
 		}
