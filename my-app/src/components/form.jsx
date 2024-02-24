@@ -43,11 +43,17 @@ export const Form = () => {
 			if (target.value.length > 20) {
 				currentError = errors.passwordMaxLengthError;
 			}
+			if (target.value.length === 0) {
+				currentError = null
+			}
 			setPasswordError(currentError);
 		}
 		if (target.name === 'retryPassword') {
 			if (target.value !== password) {
 				currentError = errors.passwordNotMatch;
+			}
+			if (target.value.length === 0) {
+				currentError = null
 			}
 			setRetryPasswordError(currentError);
 		}
