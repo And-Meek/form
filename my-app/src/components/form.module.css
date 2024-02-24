@@ -1,0 +1,127 @@
+.Form {
+	background-color: inherit;
+	width: 400px;
+	height: 400px;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	border-color: aliceblue;
+	border-style: solid;
+	border-radius: 25px;
+}
+form {
+	margin-top: 10px;
+}
+input {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	width: 350px;
+	height: 40px;
+	font-size: calc(10px + 1vmin);
+	margin: 10px 0px;
+	padding: 0px 10px;
+	background-color: inherit;
+	border-color: aliceblue;
+	border-style: solid;
+	border-radius: 15px;
+	color: aliceblue;
+}
+.inputName {
+	width: 350px;
+	font-size: calc(10px + 1vmin);
+	padding: 0px;
+}
+.input {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	width: 350px;
+	height: 40px;
+	font-size: calc(10px + 1vmin);
+	margin: 10px 0px;
+	padding: 0px 10px;
+	background-color: inherit;
+	border-color: aliceblue;
+	border-style: solid;
+	border-radius: 15px;
+	color: aliceblue;
+	transition:
+		box-shadow 0.4s,
+		border-color 1s,
+		color 1s;
+}
+
+.inputError {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	width: 350px;
+	height: 40px;
+	font-size: calc(10px + 1vmin);
+	margin: 10px 0px;
+	padding: 0px 10px;
+	background-color: inherit;
+	border-color: grey;
+	border-style: solid;
+	border-radius: 15px;
+	color: grey;
+	transition:
+		box-shadow 0.4s,
+		border-color 1s,
+		color 1s;
+}
+
+.button {
+	background-color: inherit;
+	border-color: aliceblue;
+	border-style: solid;
+	border-radius: 15px;
+	width: 374px;
+	height: 44px;
+	font-size: calc(10px + 1vmin);
+	color: aliceblue;
+	margin-top: 80px;
+	margin-bottom: 0px;
+	padding: 0px;
+	transition:
+		box-shadow 0.4s,
+		border-color 1s,
+		color 1s;
+}
+
+.button:hover {
+	cursor: pointer;
+	box-shadow: 4px 4px 100px 80px rgba(212, 214, 216, 0.2) inset;
+}
+.buttonError {
+	background-color: inherit;
+	border-color: grey;
+	border-style: solid;
+	border-radius: 15px;
+	width: 374px;
+	height: 44px;
+	font-size: calc(10px + 1vmin);
+	color: grey;
+	margin-top: 40px;
+	margin-bottom: 0px;
+	padding: 0px;
+	transition:
+		border-color 1s,
+		color 1s;
+}
+
+.error {
+	width: 374px;
+	height: 40px;
+	color: red;
+	font-size: 15px;
+}
