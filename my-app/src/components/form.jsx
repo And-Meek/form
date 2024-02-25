@@ -1,108 +1,80 @@
-import { useRef, useState } from 'react';
-import { useStore } from './Utils/useStore';
-import { errors } from './consts/Consts';
+import { useRef } from 'react';
+import { errorsText } from './consts/Consts';
 import style from './form.module.css';
-
-const sendData = (formData) => {
-	console.log(formData);
-};
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
 export const Form = () => {
-	const { getState, updateState, resetState } = useStore();
-	const [passwordError, setPasswordError] = useState(null);
-	const [retryPasswordError, setRetryPasswordError] = useState(null);
+	const fieldsScheme = yup.object().shape({
+		email: yup.string().matches(/^[\w]*@[a-z]*\.[a-z]{2,3}$/, errorsText.emailValueError),
+		password: yup
+			.string()
+			.matches(/^[\wS]*$/, errorsText.passwordValueError)
+			.max(20, errorsText.passwordMaxLengthError)
+			.min(6, errorsText.passwordMinLengthError),
+		retryPassword: yup
+			.string()
+			.test('match', 'Пароль не совпадает', (value) => value === getValues('password')),
+	});
+
+	const {
+		register,
+		handleSubmit,
+		getValues,
+		formState: { errors },
+	} = useForm({
+		email: '',
+		password: '',
+		retryPassword: '',
+		resolver: yupResolver(fieldsScheme),
+	});
 	const submitButtonRef = useRef(null);
+	const emailError = errors.email?.message;
+	const passwordError = errors.password?.message;
+	const retryPasswordError = errors.retryPassword?.message;
 
-	const onSubmit = (event) => {
-		event.preventDefault();
-		sendData(getState());
-		resetState();
+	const retryPasswordProps = {
+		onChange: ({ target }) => {
+			if (target.value === getValues('password')) {
+				return submitButtonRef.current.focus();
+			}
+		},
 	};
 
-	let currentError = null;
-	const onChange = ({ target }) => {
-		if (target.name === 'password') {
-			if (!/^[\wS]*$/.test(target.value)) {
-				currentError = errors.passwordValueError;
-			}
-		}
-		if (target.name === 'retryPassword') {
-			if (target.value === password) {
-				submitButtonRef.current.focus();
-			}
-		}
-		setPasswordError(currentError);
-		return updateState(target.name, target.value);
+	const onSubmit = (formData) => {
+		console.log(formData);
 	};
-
-	const onBlur = ({ target }) => {
-		if (target.name === 'password') {
-			if (target.value.length < 6) {
-				currentError = errors.passwordMinLengthError;
-			}
-			if (target.value.length > 20) {
-				currentError = errors.passwordMaxLengthError;
-			}
-			if (target.value.length === 0) {
-				currentError = null
-			}
-			setPasswordError(currentError);
-		}
-		if (target.name === 'retryPassword') {
-			if (target.value !== password) {
-				currentError = errors.passwordNotMatch;
-			}
-			if (target.value.length === 0) {
-				currentError = null
-			}
-			setRetryPasswordError(currentError);
-		}
-	};
-
-	const { email, password, retryPassword } = getState();
 
 	return (
 		<div className={style.Form}>
-			<form onSubmit={onSubmit}>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className={style.inputName}>Email</div>
-				<input
-					type="email"
-					name="email"
-					value={email}
-					placeholder="Email"
-					onChange={onChange}
-				/>
+				<input type="text" name="email" placeholder="Email" {...register('email')} />
+				{emailError && <div className={style.error}>{emailError}</div>}
 				<div className={style.inputName}>Пароль</div>
 				<input
 					type="password"
 					name="password"
-					value={password}
 					placeholder="Password"
-					onChange={onChange}
-					onBlur={onBlur}
+					{...register('password')}
 				/>
 				{passwordError && <div className={style.error}>{passwordError}</div>}
 				<div className={style.inputName}>Повтор пароля</div>
 				<input
 					type="password"
 					name="retryPassword"
-					className={passwordError === null ? style.input : style.inputError}
-					value={retryPassword}
+					className={!passwordError ? style.input : style.inputError}
 					placeholder="Password"
-					onChange={onChange}
-					onBlur={onBlur}
-					disabled={passwordError !== null}
+					{...register('retryPassword', retryPasswordProps)}
+					disabled={!!passwordError}
 				/>
 				{retryPasswordError && <div className={style.error}>{retryPasswordError}</div>}
 				<button
 					ref={submitButtonRef}
-					className={
-						passwordError === null && retryPasswordError === null
-							? style.button
-							: style.buttonError
-					}
+					className={!passwordError ? style.button : style.buttonError}
 					type="submit"
-					disabled={passwordError !== null || retryPasswordError !== null}
+					disabled={!!passwordError && !!emailError}
 				>
 					Зарегистрироваться
 				</button>

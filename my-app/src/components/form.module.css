@@ -89,7 +89,7 @@ input {
 	height: 44px;
 	font-size: calc(10px + 1vmin);
 	color: aliceblue;
-	margin-top: 80px;
+	margin-top: 40px;
 	margin-bottom: 0px;
 	padding: 0px;
 	transition:
@@ -103,6 +103,7 @@ input {
 	box-shadow: 4px 4px 100px 80px rgba(212, 214, 216, 0.2) inset;
 }
 .buttonError {
+	position: fixed;
 	background-color: inherit;
 	border-color: grey;
 	border-style: solid;
@@ -111,7 +112,7 @@ input {
 	height: 44px;
 	font-size: calc(10px + 1vmin);
 	color: grey;
-	margin-top: 40px;
+	margin-top: 0px;
 	margin-bottom: 0px;
 	padding: 0px;
 	transition:
