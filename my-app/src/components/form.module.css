@@ -1,7 +1,7 @@
 .Form {
 	background-color: inherit;
 	width: 400px;
-	height: 400px;
+	height: 450px;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: column;
@@ -89,7 +89,7 @@ input {
 	height: 44px;
 	font-size: calc(10px + 1vmin);
 	color: aliceblue;
-	margin-top: 40px;
+	margin-top: 90px;
 	margin-bottom: 0px;
 	padding: 0px;
 	transition:
